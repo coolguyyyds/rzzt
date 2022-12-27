@@ -76,8 +76,8 @@ export default {
     }
     return {
       loginForm: {
-        mobile: 'admin',
-        password: '111111'
+        mobile: '13800000002',
+        password: '123456'
       },
       loginRules: {
         mobile: [{ required: true, trigger: 'blur', message: '手机号必填' },
@@ -112,15 +112,14 @@ export default {
       })
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
-          this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
-            this.loading = false
-          }).catch(() => {
-            this.loading = false
-          })
+          try {
+            await this.$store.dispatch('user/login', this.loginForm)
+            this.$router.push('/')
+          } catch (err) {
+            console.log(err)
+          }
         } else {
           console.log('error submit!!')
           return false
@@ -157,7 +156,7 @@ $cursor: #fff;
     input {
       background: transparent;
       border: 0px;
-      -webkit-appearance: none;
+      // -webkit-appearance: none;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
       color: $light_gray;

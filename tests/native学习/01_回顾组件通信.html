@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/2.6.14/vue.js" type="application/javascript"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- v-on作用于组件,父子组件通信,v-on是父组件在监听子组件的发的消息 -->
+        <el-button @click="onClick"></el-button>
+    </div>
+</body>
+<script >
+    Vue.component('el-button', {
+        template: `<button @click="$emit('click')">
+            按钮
+        </button>`
+    })
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                msg: 'hello vue'
+            }
+        },
+        methods: {
+            onClick(){
+                console.log('点击了')
+            }
+        },
+    })
+</script>
+</html>

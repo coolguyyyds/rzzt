@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+//try-catch
+//处理错误方式1-通过try-catch处理语法错误
+/*
+try{
+  let obj = JSON.parse("{username: 'zs'}")
+}catch(e){
+    console.log(e)
+}
+// let obj = JSON.parse('{"username": "zs"}')
+console.log(123)
+*/
+function request(){
+  return new Promise((resolve,reject)=>{
+    // resolve('abc')
+    reject({status: 400,message:'产生错误'})
+  })
+}
+//处理错误方式2-通过.catch方法处理promise错误
+/*
+request().then(data=>{
+    console.log(data)
+}).catch(error=>{
+    console.log(error)
+})
+*/
+//处理错误方式3-通过try-catch捕获异步函数当中promise错误
+async function fn() {
+    try{
+      let data = await request()
+      console.log(data)
+    }catch(error){
+        console.log(error)
+    }
+}
+fn()
+</script>
+</html>

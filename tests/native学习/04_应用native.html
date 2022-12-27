@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/2.6.14/vue.js" type="application/javascript"></script>
+</head>
+<body>
+    <div id="app">
+        <!--  监听子组件消息,方式1-通过父子通信 -->
+        <!-- .enter不能用于父子通信，用于冒泡原生事件 -->
+        <!-- <el-input @keyup.enter="onClick"></el-input> -->
+        <!-- 监听子组件消息,方式2-通过事件冒泡 -->
+        <div @keyup.enter="onClick">
+            <el-input></el-input>
+        </div>
+        <!-- 通过native修饰符实现 方式2-语法糖 -->
+        <!-- <el-input @keyup.enter.native="onClick"></el-input> -->
+    </div>
+</body>
+<script >
+    Vue.component('el-input', {
+        template: `<input>
+        </input>`
+    })
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                msg: 'hello vue'
+            }
+        },
+        methods: {
+            onClick(){
+                console.log('点击了')
+            }
+        },
+    })
+</script>
+</html>

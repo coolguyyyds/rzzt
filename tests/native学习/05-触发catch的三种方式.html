@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function request () {
+      return new Promise(res, rej){
+        // 1
+        // rej(new Error('错误'))
+        // 2
+        // throw new Error('主动产生一个错误')
+        // 3 语法糖
+        // res(Promise.reject(new Error('产生一个错误')))
+      }
+    }
+    async function fn () {
+      try {
+        await request()
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    fn()
+  </script>
+</body>
+</html>

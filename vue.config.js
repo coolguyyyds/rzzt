@@ -35,6 +35,14 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
+    },
+    proxy: {
+      // 基准地址/拦截地址
+      // 相对于地址/api,相当于当前服务器即http://localhost:9528/api
+      '/api': {
+        target: 'http://ihrm-java.itheima.net',
+        changeOrigin: true // 是否运行跨域
+      }
     }
     // before: require('./mock/mock-server.js')
   },
