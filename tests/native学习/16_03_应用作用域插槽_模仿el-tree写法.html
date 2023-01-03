@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/2.6.14/vue.js" type="application/javascript"></script>
+</head>
+<body>
+    <div id="app">
+        <el-tree :data="list">
+            <template v-slot="{list}">
+                <div>
+                    {{list}}
+                </div>
+            </template>
+        </el-tree>
+    </div>
+</body>
+<!--
+作用域插槽
+(1)用途
+ 子组件通过插槽传数据给父组件
+(2)特征
+    - 子组件通过<slot></slot>和v-bind传数据
+    - 父组件通过v-slot接受数据
+-->
+<script >
+    Vue.component('el-tree', {
+        props: ['data'],
+        template: `
+        // 将循环数据传递给父组件
+            <div>
+                <slot v-for="item in data" :list="item"></slot>
+            </div>
+        `
+    })
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                list: [
+                    {name: 'zs'},
+                    {name: 'ls'}
+                ]
+            }
+        }
+    })
+</script>
+</html>

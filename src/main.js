@@ -14,7 +14,15 @@ import router from './router'
 
 import '@/icons' // icon
 import '@/permission' // permission control
-
+import '@/directives'
+import Ui from '@/components'
+Vue.use(Ui)
+// 批量导入整体加载
+import * as filters from '@/filters'
+// 循环对象 把对象转为数组
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/lodash.js/4.17.21/lodash.min.js" type="application/javascript"></script>
+  </head>
+  <body></body>
+  <script>
+    let list = [
+      {
+        id: "1063705989926227968",
+        mobile: "13800000002",
+        username: "87yoyo王",
+        password: "c8b7722b1139bb9b346409e503302e82",
+        enableState: 1,
+        createTime: "2018-11-17T16:10:45.000+0000",
+        companyId: "1",
+        companyName: "传智播客",
+        departmentId: "1175310929766055936",
+        timeOfEntry: "2018-11-02T08:00:00.000+0000",
+        formOfEmployment: 1,
+        workNumber: "9002",
+        formOfManagement: null,
+        workingCity: null,
+        correctionTime: "2018-11-30T00:00:00.000+0000",
+        inServiceStatus: 1,
+        departmentName: "总裁办",
+        level: "coAdmin",
+        staffPhoto:
+          "http://q6cu3t6jv.bkt.clouddn.com/1063705989926227968?t=1672727332098",
+      },
+    ];
+    //目标生成导出需要数据
+    // let header = ['姓名','手机号','入职日期','聘用形式','转正日期','工号','部门']
+    //角度1-作为人类思考问题,我需要做哪些事情
+    //(1)形成二维数组
+    //(2)根据header去list找值
+    //(3)把值放到data里面去
+    // let data = [["87yoyo王","13800000002","2018-11-02T08:00:00.000+0000",...]]
+    //角度2-作为机器思考问题,我需要关注刚才操作当中,对哪些类型数据做了哪些操作
+    //(1)根据中文去找英文,需要数据映射,用到对象key和value对应关系(对象操作,key-value)
+    const headers = {
+      '手机号': 'mobile',
+      '姓名': 'username',
+      '入职日期': 'timeOfEntry',
+      '聘用形式': 'formOfEmployment',
+      '转正日期': 'correctionTime',
+      '工号': 'workNumber',
+      '部门': 'departmentName'
+    }
+    //(2)对象的过滤(对象操作)
+        // const item = _.pick(list[0], Object.values(headers))
+        // console.log(item)
+    //(3)对象数组转换二维数组,久的数组产生一个新的数组(数组的操作)
+      const header = Object.values(headers)
+      const data = list.map(item => {
+        // 对象的过滤(对象操作)
+        const l = _.pick(list[0], Object.values(headers))
+        return Object.values(l)
+      })
+      console.log(data)
+  </script>
+</html>

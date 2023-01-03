@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/2.6.14/vue.js" type="application/javascript"></script>
+</head>
+<body>
+    <div id="app">
+        <son>
+            <h2>标题</h2>
+            <h2>标题</h2>
+            <h4>标题4</h4>
+            <div>
+                <p>12398989</p>
+            </div>
+        </son>
+    </div>
+</body>
+<!--
+插槽
+(1)用途
+    理解它的用途,最好方式不用它,和用它做对比,理解为什么要用它
+    父组件传标签内容给子组件
+(2)特征
+    - 在父组件当中,子组件标签体里面写标签内容
+    - 在子组件当中,通过<slot></slot>标签进行接受
+-->
+
+<script>
+    Vue.component('son', {
+        template: `
+            <div>
+                子组件
+                <slot></slot>
+            </div>
+        `
+    })
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+            }
+        }
+    })
+</script>
+</html>

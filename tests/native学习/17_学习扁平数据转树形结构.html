@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+    // 将扁平化数据转成树形结构数据
+let depts = [
+    {id: 1,name:'节点1', pid: ''},
+    {id: 11,name:'节点1-1', pid: 1},
+    {id: 12,name:'节点1-2', pid: 1},
+    {id: 121,name:'节点1-2-1', pid: 12},
+    {id: 2,name:'节点2', pid: ''}
+]
+// 数据操作-方式1-不通过递归
+//(1)找孩子,添加children字段
+// depts.forEach(item => {
+//     const children = depts.filter(el => item.id === el.pid)
+//     if(children.length > 0) {
+//         item.children = children
+//     }
+// })
+// console.log(depts)
+//(2)返回最外层节点
+// const list = depts.filter(item => item.pid === '')
+// console.log(list)
+
+// 把全局的变量改为局部的变量,使用局部变量
+// function translateListToTree(arr,pid){
+//     let result = arr.filter(item => item.pid === pid)
+//     result.forEach(el => {
+//         const children = translateListToTree(arr,el.id)
+//         if(children.length){
+//             el.children = children
+//         }
+//     })
+//     return result
+// }
+// console.log(translateListToTree(depts,''))
+</script>
+</html>

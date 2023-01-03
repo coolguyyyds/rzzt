@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/2.6.14/vue.js" type="application/javascript"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- v-if="变量/表达式" -->
+        <img :src="imgPath" v-imgerror="'https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png'">
+    </div>
+</body>
+          <!-- /static/img/head.b6c3427d.jpg -->
+          <!-- 默认img设置src,webpack会对地址做处理,给我们打包之后地址 -->
+          <!-- <img src="../../assets/common/head.jpg" alt=""> -->
+          <!-- 如果改成动态,webpack不会给做处理 -->
+          <!-- <img :src="'../../assets/common/head.jpg'" alt=""> -->
+          <!-- <img :src="require('../../assets/common/head.jpg')" alt=""> -->
+
+          <!-- // 通过模块语法可以主动让webpack做处理
+            // import imgPath from '../../assets/common/head.jpg'
+            const imgPath = require('../../assets/common/head.jpg')
+            console.log(imgPath) -->
+<script >
+    // 什么是自定义指令：
+    // 用途：用于操作dom元素
+    // 特征：自定义属性， v-开头
+    Vue.directive('imgerror', {
+        inserted(el,binding){
+            console.log('inserted','---'+el.src+'---')
+            if(!el.src){
+                el.src = binding.value
+            }
+            el.onerror = function () {
+                this.src = binding.value
+            }
+        },
+        update(el,binding){
+            console.log('update','----------'+el.src+'--------')
+            if(!el.src){
+                el.src = binding.value
+            }
+        }
+    })
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                imgPath: undefined
+            }
+        },
+        created() {
+            setTimeout(() => {
+                // this.imgPath = 'http://localhost:8080/undefined.png'
+                // this.imgPath = null
+                this.imgPath = undefined
+            }, 2000)
+        }
+    })
+</script>
+</html>
