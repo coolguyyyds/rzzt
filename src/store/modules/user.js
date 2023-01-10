@@ -1,4 +1,5 @@
 import { getEmployeeBaseInfo, getUserBaseInfo, login } from '@/api/user'
+import { resetRouter } from '@/router'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const state = {
@@ -32,11 +33,15 @@ const actions = {
     // this.$store 等效于 context
     context.commit('REMOVE_TOKEN')
     context.commit('REMOVE_USERINFO')
+    // 重置路由 推出的时候重置路由 防止重复addRoutes路由配置
+    resetRouter()
   },
   async getUserInfo(context) {
     const o = await getUserBaseInfo()
     const m = await getEmployeeBaseInfo(o.userId)
-    context.commit('SET_USERINFO', { ...o, ...m })
+    const userInfo = { ...o, ...m }
+    context.commit('SET_USERINFO', userInfo)
+    return userInfo
   }
 }
 

@@ -11,7 +11,7 @@ import '@/styles/index.scss' // global css
 import App from './App'
 import store from './store'
 import router from './router'
-
+import '@/utils/mock'
 import '@/icons' // icon
 import '@/permission' // permission control
 import '@/directives'
@@ -23,6 +23,16 @@ import * as filters from '@/filters'
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
+import '@/mixins'
+// // 定义一个全局方法
+// Vue.prototype.hasOwnPermission = function(key) {
+//   // try {
+//   //   return this.$store.state.user.userInfo.roles.points.includes(key)
+//   // } catch (e) {
+//   //   return false
+//   // }
+//   return this.$store.state.user.userInfo.roles.points.includes(key) || false
+// }
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

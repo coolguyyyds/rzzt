@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/2.6.14/vue.js" type="application/javascript"></script>
+</head>
+<body>
+    <div id="app">
+      <tom></tom>
+      <jerry></jerry>
+    </div>
+</body>
+<script>
+  // 全局混入 变量 方法 钩子函数
+    Vue.mixin({
+      data() {
+        return {
+          age: 18
+        }
+      },
+      methods: {
+        hasPermission(){
+          return true
+        }
+      },
+    })
+    Vue.component('tom',{
+      // 数据/方法重名,遵循就近原则
+      data() {
+        return {
+          username: 'llllo'
+        }
+      },
+      created() {
+        console.log(666)
+      },
+      template: `<div>tom-{{hasPermission()}}</div>`
+    })
+    const peron = {
+      data() {
+        return {
+          username: 'wuwuwu'
+        }
+      },
+    }
+    Vue.component('jerry',{
+      // 局部混入
+      mixins:[peron],
+      template: `<div>jerry-{{username}}-{{age}}</div>`
+    })
+    new Vue({
+        el: '#app'
+    })
+</script>
+</html>

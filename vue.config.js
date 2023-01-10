@@ -37,10 +37,19 @@ module.exports = {
       errors: true
     },
     proxy: {
+      // 完整路径:target+baseUrl+请求路径
+      // http://ihrm-java.itheima.net/api/sys/login
+      // 接口地址1-传智项目库
+      // target: 'http://ihrm-java.itheima.net',
+      // 接口地址2-课程设计者
+      // 完整路径:target+baseUrl+请求路径
+      // http://ihrm.itheima.net/api/sys/login
       // 基准地址/拦截地址
       // 相对于地址/api,相当于当前服务器即http://localhost:9528/api
       '/api': {
-        target: 'http://ihrm-java.itheima.net',
+        // target: 'http://ihrm-java.itheima.net',
+        target: 'http://ihrm.itheima.net',
+        pathRewrite: { '^/api': '/prod-api' },
         changeOrigin: true // 是否运行跨域
       }
     }

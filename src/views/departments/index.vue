@@ -3,7 +3,7 @@
     <div class="app-container">
       <el-card class="tree-card">
         <tree-node :data="companyInfo">
-          <el-dropdown-item @click.native="onAdd(companyInfo)">添加子部门</el-dropdown-item>
+          <el-dropdown-item :disabled="!hasOwnPermission('add-dept')" @click.native="onAdd(companyInfo)">添加子部门</el-dropdown-item>
         </tree-node>
         <el-tree :data="list" :props="{label:'name'}" default-expand-all>
           <!-- 使用作用域插槽自定义树显示内容 -->
@@ -16,7 +16,7 @@
           <!-- 注意-v-slot只能用到<template></template> -->
           <template v-slot="{data}">
             <tree-node :data="data">
-              <el-dropdown-item @click.native="onAdd(data)">添加子部门</el-dropdown-item>
+              <el-dropdown-item :disabled="!hasOwnPermission('add-dept')" @click.native="onAdd(data)">添加子部门</el-dropdown-item>
               <el-dropdown-item @click.native="onUpdate(data.id)">编辑部门</el-dropdown-item>
               <el-dropdown-item @click.native="ondel(data.id)">删除部门</el-dropdown-item>
             </tree-node>

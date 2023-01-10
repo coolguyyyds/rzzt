@@ -5,7 +5,7 @@
         <!-- vue2.6之前写法 slot="插槽名称"-->
         <!-- vue2.6之后写法 -->
         <template v-slot:before>
-          <span>当前共有x条数据</span>
+          <span>当前共有{{ pageParams.total }}条数据</span>
         </template>
         <template #after>
           <el-button type="danger" size="small" @click="onExport">员工导出</el-button>
@@ -49,11 +49,12 @@
           </el-table-column>
           <el-table-column sortable label="操作" width="270">
             <template v-slot="{row}">
-              <el-button type="text">查看</el-button>
+              <el-button type="text" @click="$router.push('employees/detail/' + row.id)">查看</el-button>
               <el-button type="text">转正</el-button>
               <el-button type="text">调岗</el-button>
               <el-button type="text">离职</el-button>
               <el-button type="text">转正</el-button>
+              <el-button type="text" @click="onShowRoles(row.id)">角色</el-button>
               <el-button type="text" @click="onDel(row.id)">删除</el-button>
             </template>
           </el-table-column>
@@ -79,16 +80,31 @@
         </el-row>
       </el-dialog>
       <add-emp :show-dialog.sync="isAddEmployee" @add-success="getUserList"></add-emp>
+      <el-dialog
+        title="分配权限"
+        :visible.sync="rolesDialogVisible"
+        width="50%"
+      >
+        <el-checkbox-group v-model="roleIds">
+          <el-checkbox v-for="(item,index) in roleList" :key="index" :label="item.id">{{ item.name }}</el-checkbox>
+        </el-checkbox-group>
+        <el-row slot="footer" type="flex" justify="center">
+          <el-button size="small" @click="rolesDialogVisible = false">取消</el-button>
+          <el-button type="primary" size="small" @click="onAssignRole()">确认</el-button>
+        </el-row>
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
-import { delEmployeeById, getUserList } from '@/api/employees'
+import { assignRoles, delEmployeeById, getUserList } from '@/api/employees'
 import QrcodeVue from 'qrcode.vue'
 import AddEmp from './components/addEmp.vue'
 import { pick } from 'lodash'
 import { formatDate, formOfEmployment } from '@/filters'
+import { getRoles } from '@/api/setting'
+import { getEmployeeBaseInfo } from '@/api/user'
 export default {
   name: 'EmployeesPage',
   components: { QrcodeVue, AddEmp },
@@ -102,11 +118,17 @@ export default {
       },
       isQrcodeDialog: false,
       imgUrl: '',
-      isAddEmployee: false
+      isAddEmployee: false,
+      rolesDialogVisible: false,
+      roleIds: [],
+      roleList: [],
+      currentUserId: undefined
     }
   },
-  created() {
+  async created() {
     this.getUserList()
+    const { rows } = await getRoles({ page: 1, pagesize: 100 })
+    this.roleList = rows
   },
   mounted() {},
   methods: {
@@ -131,8 +153,11 @@ export default {
       }).then(async action => {
         await delEmployeeById(id)
         this.$message.success('删除成功')
+        // 计算总的页数
         const totalPage = Math.ceil((this.pageParams.total - 1) / this.pageParams.size)
+        // 删除数据前的总页面数是否大于删除后的总页面数 如果大于则需要跳转上一页等于则不需要跳转
         const pageNum = this.pageParams.page > totalPage ? totalPage : this.pageParams.page
+        // 判断是否员工数据总页数小于1页，当删除只有一页的最后一条数据时不需要跳转上一页
         this.pageParams.page = pageNum < 1 ? 1 : pageNum
         this.getUserList()
       })
@@ -166,8 +191,21 @@ export default {
           bookType: 'xlsx' // 非必填
         })
       })
+    },
+    async onShowRoles(id) {
+      this.currentUserId = id
+      const { roleIds } = await getEmployeeBaseInfo(id)
+      this.roleIds = roleIds
+      this.rolesDialogVisible = true
+    },
+    async onAssignRole() {
+      await assignRoles({
+        id: this.currentUserId,
+        roleIds: this.roleIds
+      })
+      this.$message.success('操作成功')
+      this.rolesDialogVisible = false
     }
-
   }
 }
 </script>

@@ -2,7 +2,7 @@
   <el-card class="page-tools">
     <el-row type="flex">
       <el-col>
-        <div class="before">
+        <div v-if="hasBefore" class="before">
           <i class="el-icon-info"></i>
           <slot name="before"></slot>
         </div>
@@ -20,6 +20,12 @@
 export default {
   name: 'PageTools',
   components: {},
+  props: {
+    hasBefore: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
 

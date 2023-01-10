@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+//菜单标识
+let menus = [
+  'employees',
+  'departments'
+]
+// 字符串数组
+// let asyncStrRoutes = [
+//   'employees',
+//   'settings',
+//   'permissions',
+//   'social_securitys',
+//   'approvals',
+//   'attendances',
+//   'salarys',
+//   'departments'
+// ]
+// const arr = asyncStrRoutes.filter(item => menus.includes(item))
+// console.log(arr)
+//目标1.对asyncStrRoutes,根据menus里面的内容的东西做过滤
+// console.log(filterStrRoutes)
+// 对象数组
+// let asyncObjRoutes = [
+//   {name: 'employees'},
+//   {name: 'settings'},
+//   {name: 'permissions'},
+//   {name: 'social_securitys'},
+//   {name: 'approvals'},
+//   {name: 'attendances'},
+//   {name: 'salarys'},
+//   {name: 'departments'}
+// ]
+// const arr = asyncObjRoutes.filter(item => menus.includes(item.name))
+// console.log(arr)
+//目标2.对asyncObjRoutes,根据menus里面的内容的东西做过滤
+
+// console.log(filterObjRoutes)
+// 复杂的对象数组
+let asyncRoutes = [
+  {children: [{name: 'employees'}]},
+  {children: [{name: 'settings'}]},
+  {children: [{name: 'permissions'}]},
+  {children: [{name: 'social_securitys'}]},
+  {children: [{name: 'approvals'}]},
+  {children: [{name: 'attendances'}]},
+  {children: [{name: 'salarys'}]},
+  {children: [{name: 'departments'}]}
+]
+
+//目标3.asyncRoutes,根据menus里面的内容的东西做过滤
+const arr = asyncRoutes.filter(item => menus.includes(item.children[0].name))
+console.log(arr)
+</script>
+</html>

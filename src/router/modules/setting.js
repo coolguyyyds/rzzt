@@ -6,7 +6,7 @@ export default {
     {
       // 默认路由,访问父路径,默认访问为空的路径的子页面''
       path: '',
-      name: 'setting',
+      name: 'settings',
       component: () => import('@/views/setting/index.vue'),
       meta: { title: '公司设置', icon: 'setting' }
     }

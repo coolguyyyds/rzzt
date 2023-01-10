@@ -48,3 +48,11 @@ export function getRoleById(id) {
     method: 'GET'
   })
 }
+// 给角色分配权限
+export function assignRolePrem(data) {
+  return request({
+    url: '/sys/role/assignPrem',
+    method: 'PUT',
+    data
+  })
+}
